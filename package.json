@@ -1,14 +1,39 @@
 {
-  "name": "react-demo-setup",
-  "version": "0.1.0",
+  "name": "mapco",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@progress/kendo-licensing": "^1.2.2",
+    "@progress/kendo-react-form": "^5.9.0",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.1",
+    "crypto-js": "^4.1.1",
+    "jquery": "^3.6.1",
+    "lodash.uniqwith": "^4.5.0",
+    "moment": "^2.29.4",
+    "qrcode.react": "^3.1.0",
+    "query-string": "^7.1.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
+    "react-hook-mask": "^1.1.10",
+    "react-image-file-resizer": "^0.4.8",
+    "react-loader-spinner": "^5.2.1",
+    "react-owl-carousel": "^2.3.3",
+    "react-qr-code": "^2.0.7",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react.qrcode.generator": "0.0.3",
+    "redux": "^4.2.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -34,5 +59,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.22.0",
+    "eslint-plugin-react": "^7.30.1",
+    "sass": "^1.54.5"
   }
 }

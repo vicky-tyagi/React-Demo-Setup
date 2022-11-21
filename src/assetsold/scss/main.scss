@@ -1,0 +1,45 @@
+
+$primary:#060D63;
+$danger:#C61E17;
+$white:#fff;
+$black:#000;
+$font-family-base:'Lato', sans-serif;
+$popover-max-width: 450px;
+$border-radius:               .25rem !default;
+$border-radius-sm:            .35rem !default;
+$border-radius-lg:            .5rem !default;
+$input-btn-padding-y:         .5rem !default;
+$input-btn-padding-x:         1rem !default;
+$input-border-color:            #ddd !default;
+
+
+
+//  for accordian settings
+
+$navbar-nav-link-padding-x:         1rem;
+$nav-link-font-size:12px;
+$nav-link-font-weight: 500;
+$font-size-base:              0.8rem; // Assumes the browser default, typically `16px`
+
+$accordion-button-padding-y:              0!default;
+$accordion-button-padding-x:              0 !default;
+$accordion-button-color:                  $white !default;
+$accordion-button-bg:                     transparent !default;
+$accordion-button-active-bg:              transparent  !default;
+$accordion-button-active-color:           transparent !default;
+
+
+$accordion-icon-width:                    1.25rem !default;
+$accordion-icon-color:                    $white!default;
+$accordion-icon-active-color:             $white !default;
+$accordion-icon-transition:               transform .2s ease-in-out !default;
+$accordion-icon-transform:                rotate(-180deg) !default;
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css');
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+//  for page stying
+@import 'pageStyle.scss';
