@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CLIENT_SECRET } from '../constants/globalConstants'
+import { getConfigDetails } from './config'
 const axiosClient = axios.create()
 
 // Intercept request
@@ -7,7 +7,8 @@ axiosClient.interceptors.request.use(
 	(request) => {
 		const userData = JSON.parse(localStorage.getItem('userData'))
 		request.headers['Content-Type'] = 'application/json'
-		request.headers['Authorization'] = `Bearer ${userData?.access_token}`
+		userData?.access_token ? request.headers['Authorization'] = `Bearer ${userData?.access_token}` : '',
+			request.headers['X-ClientSecret'] = getConfigDetails()?.CLIENT_SECRET
 		return request
 	},
 	null,
@@ -18,16 +19,16 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
 	(response) => {
 		// Dispatch any action on success
-		//if(response?.status === responseCodes.SUCCESS200)
-		if (response?.status === 201 || response?.status === 200) {
-			return response.data
+		if (response?.status == 201 || response?.status == 200) {
+			return response?.data
+		} else {
+			return Promise.reject(response?.data)
 		}
-		return response?.data
 	}
 	,
 	(error) => {
 
-		return Promise.reject(error.response.data)
+		return Promise.reject(error?.response?.data)
 
 	}
 )
@@ -39,7 +40,6 @@ axiosClient.interceptors.response.use(
 axiosClient.defaults.headers = {
 	'Content-Type': 'application/json',
 	Accept: 'application/json',
-	'X-ClientSecret': CLIENT_SECRET,	
 }
 
 // All request will wait 1 min before timeout

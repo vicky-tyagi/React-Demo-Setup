@@ -15,9 +15,9 @@ import Resizer from 'react-image-file-resizer'
 
 
 let userAgent = navigator.userAgent || navigator.vendor
- const iOS = (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) || /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
- ? true:false
- 
+const iOS = (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) || /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+  ? true : false
+
 //   Sat Apr 01 2023 17:05:00 GMT+0530 (India Standard Time)
 export const formatDate = (date) => {
   let date_final
@@ -97,7 +97,7 @@ export const dateFormatter = (date, format) => moment(date).format(format)
 export function formatMonthYear(date) {
   let date_final
   if (iOS) {
-	let arr = date.split(/[- :]/)
+    let arr = date.split(/[- :]/)
     const newDate = new Date(
       arr[0],
       arr[1] - 1,
@@ -146,16 +146,16 @@ export const getEventType = (event) => {
 //   }
 // }
 
-export const getEventTypeByPassType = (pass_type,is_full_season, log) => {
+export const getEventTypeByPassType = (pass_type, is_full_season, log) => {
   // switch (event_id) {
-   if(pass_type == EVENT_TYPES?.BUNDLE_PASS && is_full_season == 1){
-      return log ? EVENT_TYPES_VALUES_LOGS.BUNDLE_PASS : EVENT_TYPES_VALUES.BUNDLE_PASS
-   } else if(pass_type == EVENT_TYPES?.BUNDLE_PASS && is_full_season != 1){
-      return  log ? EVENT_TYPES_VALUES_LOGS.PARTY_PASS : EVENT_TYPES_VALUES.PARTY_PASS
-   } else if(pass_type == EVENT_TYPES?.PARTY_PASS){
-      return log ? EVENT_TYPES_VALUES_LOGS.SIMPLE : EVENT_TYPES_VALUES.SIMPLE
-   } else{
-      return log ? EVENT_TYPES_VALUES_LOGS.EVENT : EVENT_TYPES_VALUES.EVENT
+  if (pass_type == EVENT_TYPES?.BUNDLE_PASS && is_full_season == 1) {
+    return log ? EVENT_TYPES_VALUES_LOGS.BUNDLE_PASS : EVENT_TYPES_VALUES.BUNDLE_PASS
+  } else if (pass_type == EVENT_TYPES?.BUNDLE_PASS && is_full_season != 1) {
+    return log ? EVENT_TYPES_VALUES_LOGS.PARTY_PASS : EVENT_TYPES_VALUES.PARTY_PASS
+  } else if (pass_type == EVENT_TYPES?.PARTY_PASS) {
+    return log ? EVENT_TYPES_VALUES_LOGS.SIMPLE : EVENT_TYPES_VALUES.SIMPLE
+  } else {
+    return log ? EVENT_TYPES_VALUES_LOGS.EVENT : EVENT_TYPES_VALUES.EVENT
   }
 }
 
@@ -165,7 +165,7 @@ export const getEventCount = (eventId) => {
 
   switch (eventId) {
     case getConfigDetails().HALF_SEASON:
-      return eventDetails?.all_event?.length/2
+      return eventDetails?.all_event?.length / 2
     case getConfigDetails().FULL_SEASON:
       return eventDetails?.all_event?.length
     case getConfigDetails().SIX_PACK:
@@ -252,12 +252,12 @@ export const restrictInputValues = (event) => {
     event.preventDefault()
     event.stopPropagation()
     return false
+  }
 }
-} 
 
 export const getEventLogName = (pass_type, is_full_season) => `MAPCO - BOOK NOW - ${getEventTypeByPassType(pass_type, is_full_season, 'log')}`
 
-	
+
 export const validateEmail = (email) => {
   // eslint-disable-next-line no-useless-escape
   const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
@@ -265,69 +265,88 @@ export const validateEmail = (email) => {
 }
 
 export const fileChangedHandler = (event, fileId, setUpdateFileState, fileWidth, fileHeight) => {
-    let fileInput = false
-    let file = document.getElementById(fileId).files[0]
-    fileInput = file && (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/gif')
-      if(fileInput) {
-        try {
-            Resizer.imageFileResizer(
-                file,
-                fileWidth,
-                fileHeight,
-                'PNG', // fileType(JPEG, PNG,WEBP)
-                100,  // quality compression(for jpeg)
-                0, // rotation(0-100)
-                (uri) => {
-                    new Promise((resolve, reject) => {
-                        const img = new Image()
-                        // the following handler will fire after a successful loading of the image
-                        img.onload = () => {
-                            const { naturalWidth: width, naturalHeight: height } = img
-                            resolve({ width, height })
-                            setUpdateFileState({[fileId] : uri})
-                        }
-                        // and this handler will fire if there was an error with the image (like if it's not really an image or a corrupted one)
-                        img.onerror = () => {
-                            reject('There was some problem with the image.')
-                        }
-                        img.src = URL.createObjectURL(uri)
-                    })
-                },
-                'file' // outputType( base64, blob or file)
-            )
-        } catch (err) {
-            setUpdateFileState({fileId : ''})
-        }
-      }else {
-        setUpdateFileState({fileId : ''})
+  let fileInput = false
+  let file = document.getElementById(fileId).files[0]
+  fileInput = file && (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/gif')
+  if (fileInput) {
+    try {
+      Resizer.imageFileResizer(
+        file,
+        fileWidth,
+        fileHeight,
+        'PNG', // fileType(JPEG, PNG,WEBP)
+        100,  // quality compression(for jpeg)
+        0, // rotation(0-100)
+        (uri) => {
+          new Promise((resolve, reject) => {
+            const img = new Image()
+            // the following handler will fire after a successful loading of the image
+            img.onload = () => {
+              const { naturalWidth: width, naturalHeight: height } = img
+              resolve({ width, height })
+              setUpdateFileState({ [fileId]: uri })
+            }
+            // and this handler will fire if there was an error with the image (like if it's not really an image or a corrupted one)
+            img.onerror = () => {
+              reject('There was some problem with the image.')
+            }
+            img.src = URL.createObjectURL(uri)
+          })
+        },
+        'file' // outputType( base64, blob or file)
+      )
+    } catch (err) {
+      setUpdateFileState({ fileId: '' })
     }
+  } else {
+    setUpdateFileState({ fileId: '' })
+  }
 }
 
 export const encryptionHandler = (d) => {
   var nonceString = d.name_on_card + ':' + d.card_number + ':' + d.expiration_date + ':' + d.security_code + ':' + d.zip_code
   var CryptoJSAesJson = {
-      stringify: function (cipherParams) {
-          var j = {
-              ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64),
-              iv: '',
-              s: ''
-          }
-          if (cipherParams.iv)
-              j.iv = cipherParams.iv.toString()
-          if (cipherParams.salt)
-              j.s = cipherParams.salt.toString()
-          return JSON.stringify(j)
-      },
-      parse: function (jsonStr) {
-          var j = JSON.parse(jsonStr)
-          var cipherParams = CryptoJS.lib.CipherParams.create({ ciphertext: CryptoJS.enc.Base64.parse(j.ct) })
-          if (j.iv)
-              cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv)
-          if (j.s)
-              cipherParams.salt = CryptoJS.enc.Hex.parse(j.s)
-          return cipherParams
+    stringify: function (cipherParams) {
+      var j = {
+        ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64),
+        iv: '',
+        s: ''
       }
+      if (cipherParams.iv)
+        j.iv = cipherParams.iv.toString()
+      if (cipherParams.salt)
+        j.s = cipherParams.salt.toString()
+      return JSON.stringify(j)
+    },
+    parse: function (jsonStr) {
+      var j = JSON.parse(jsonStr)
+      var cipherParams = CryptoJS.lib.CipherParams.create({ ciphertext: CryptoJS.enc.Base64.parse(j.ct) })
+      if (j.iv)
+        cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv)
+      if (j.s)
+        cipherParams.salt = CryptoJS.enc.Hex.parse(j.s)
+      return cipherParams
+    }
   }
   var encrypted = CryptoJS.AES.encrypt(JSON.stringify(nonceString), 'Tw5qNOJLe5GFe7rjFsentNNQBsRHstbNzTP/18lkjnY=', { format: CryptoJSAesJson }).toString()
   return encrypted
+}
+
+export const getPartnerDetails = () => {
+  const partner = (localStorage.getItem('partnerData') && localStorage.getItem('partnerData') != 'undefined') ? JSON.parse(localStorage.getItem('partnerData')) : (sessionStorage.getItem('partnerData') && sessionStorage.getItem('partnerData') != 'undefined') ? JSON.parse(sessionStorage.getItem('partnerData')) : {}
+  return partner
+}
+
+
+export function sortPortalPermissionByKey(permissionObj, sectionName) {
+  return permissionObj?.[sectionName]?.map((item) => item)
+}
+
+export const isPermissionExist = (data, itemName) => {
+  const filterObj = (data?.length > 0) && data?.filter((item) => item?.display_name == itemName)
+  if (filterObj[0]?.is_default == '1') {
+    return true
+  } else {
+    return false
+  }
 }
